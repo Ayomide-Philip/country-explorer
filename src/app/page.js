@@ -49,46 +49,58 @@ export default function HomePage() {
         </button>
       </section>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        {queryResult.length > 0
-          ? queryResult.map((country) => (
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
+        {queryResult.map((country) => (
+          <div
+            key={country.name.common}
+            className="bg-white  rounded-2xl shadow-2xl overflow-hidden transform transition-all"
+          >
+            {/* Card Image Section */}
+            <div className="relative h-64">
               <div
-                key={country.name.common}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-[1.03] transition-all duration-300 overflow-hidden"
+                className="h-full w-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${country.flags.png})`,
+                }}
               >
-                <img
-                  src={country.flags.png}
-                  alt={country.flags.alt}
-                  className="w-full h-44 object-cover"
-                />
-                <div className="p-5">
-                  <h2 className="text-2xl font-semibold mb-3">
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 rounded-t-2xl"></div>
+
+                {/* Overlay Text */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <h2 className="text-2xl font-bold text-white leading-tight">
                     {country.name.official}
                   </h2>
-                  <ul className="space-y-1 text-sm text-white">
-                    <li>
-                      <strong>Population: </strong> {country.population}
-                    </li>
-                    <li>
-                      <strong>Region: </strong> {country.region}
-                    </li>
-                    <li>
-                      <strong>Timezone: </strong> {country.timezones}
-                    </li>
-                    <li>
-                      <strong>Sub Region: </strong> {country.subregion}
-                    </li>
-                    <li>
-                      <strong>Capital:</strong>{" "}
-                      {country.capital.map((capitals) => {
-                        return capitals;
-                      })}
-                    </li>
-                  </ul>
+                  <p className="text-sm text-white opacity-90">
+                    {country.region} — {country.subregion || "Unknown"}
+                  </p>
                 </div>
               </div>
-            ))
-          : null}
+            </div>
+
+            {/* Card Body */}
+            <div className="p-6 space-y-4">
+              <h3 className="text-lg font-semibold text-black">
+                Capital: {country.capital?.[0] || "N/A"}
+              </h3>
+              <p className="text-black text-sm leading-relaxed">
+                <strong>Population:</strong>{" "}
+                {country.population.toLocaleString()} <br />
+                <strong>Timezone:</strong> {country.timezones?.[0] || "N/A"}
+              </p>
+
+              {/* Footer */}
+              <div className="flex justify-between items-center pt-4 border-t border-black">
+                <button className="bg-green-800 text-white py-2 px-5 rounded-full text-sm font-medium shadow hover:bg-green-900 transition-all">
+                  Learn More
+                </button>
+                <span className="text-xs text-black">
+                  {country.name.common}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
       </section>
     </main>
   );
