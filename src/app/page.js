@@ -62,35 +62,41 @@ export default function HomePage() {
         </h1>
       </header>
 
-      <section className="w-full max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4 mb-10">
-        <input
-          type="text"
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          placeholder="🔍 Search for a country..."
-          className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-        <select
-          name="query"
-          onChange={(e) => {
-            setQuerySearch(e.target.value);
-          }}
-          className="sm:w-48 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="name">Name</option>
-          <option value="currency">Currency</option>
-          <option value="language">Language</option>
-          <option value="capitalCity">Capital city</option>
-          <option value="region">Region</option>
-          <option value="subRegion">Subregions</option>
-        </select>
-        <button
-          onClick={useQuery}
-          className="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200"
-        >
-          Search
-        </button>
+      <section className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-stretch gap-4 mb-12 px-4">
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="🔍 Search for a country..."
+            className="w-full h-full px-5 py-3 rounded-lg border border-gray-300  bg-gray-800 placeholder-gray-400  text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+          />
+        </div>
+
+        {/* Select Field */}
+        <div className="w-full md:w-52">
+          <select
+            name="query"
+            onChange={(e) => setQuerySearch(e.target.value)}
+            className="w-full h-full px-4 py-3 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+          >
+            <option value="name">🔤 Name</option>
+            <option value="currency">💱 Currency</option>
+            <option value="language">🗣️ Language</option>
+            <option value="capitalCity">🏛️ Capital City</option>
+            <option value="region">🌍 Region</option>
+            <option value="subRegion">🗺️ Subregion</option>
+          </select>
+        </div>
+
+        {/* Search Button */}
+        <div className="w-full md:w-auto">
+          <button
+            onClick={useQuery}
+            className="w-full h-full px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition-all duration-200"
+          >
+            🔎 Search
+          </button>
+        </div>
       </section>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
