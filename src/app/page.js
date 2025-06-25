@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 export default function HomePage() {
   const [queryResult, setqueryResult] = useState([]);
-  const [querySearch, setQuerySearch] = useState();
+  const [querySearch, setQuerySearch] = useState("name");
+  const [input, setInput] = useState();
   useEffect(() => {
     async function getAllCountry() {
       try {
@@ -18,7 +19,42 @@ export default function HomePage() {
     }
     getAllCountry();
   }, []);
-  
+
+  async function useQuery() {
+    try {
+      let url = "";
+      switch (querySearch) {
+        case "name":
+          url = `https://restcountries.com/v3.1/name/${input}`;
+          break;
+        case "region":
+          url = `https://restcountries.com/v3.1/region/${input}`;
+      }
+
+      const respond = 
+    } catch (error) {}
+
+    // if (querySearch === "name") {
+    //   try {
+    //     const respond = await axios.get(
+    //       `https://restcountries.com/v3.1/name/${input}`
+    //     );
+    //     setqueryResult(respond.data);
+    //   } catch (error) {
+    //     setqueryResult([]);
+    //   }
+    // } else if (querySearch === "region") {
+    //   try {
+    //     const respond = await axios.get(
+    //       `https://restcountries.com/v3.1/region/${input}`
+    //     );
+    //     setqueryResult(respond.data);
+    //   } catch (error) {
+    //     setqueryResult([]);
+    //   }
+    // }
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-6 py-10">
       <header className="mb-6">
@@ -30,6 +66,9 @@ export default function HomePage() {
       <section className="w-full max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4 mb-10">
         <input
           type="text"
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
           placeholder="🔍 Search for a country..."
           className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
@@ -41,7 +80,6 @@ export default function HomePage() {
           className="sm:w-48 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           <option value="name">Name</option>
-          <option value="fullName">Full Name</option>
           <option value="currency">Currency</option>
           <option value="language">Language</option>
           <option value="capitalCity">Capital city</option>
@@ -49,7 +87,10 @@ export default function HomePage() {
           <option value="region">Region</option>
           <option value="subRegion">Subregions</option>
         </select>
-        <button className="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200">
+        <button
+          onClick={useQuery}
+          className="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200"
+        >
           Search
         </button>
       </section>
