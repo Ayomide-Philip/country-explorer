@@ -29,10 +29,20 @@ export default function HomePage() {
           break;
         case "region":
           url = `https://restcountries.com/v3.1/region/${input}`;
+          break;
+        case "subRegion":
+          url = `https://restcountries.com/v3.1/subregion/${input}`;
+          break;
+        case "capitalCity":
+          url = `https://restcountries.com/v3.1/capital/${input}`;
+          break;
+        default:
+          setqueryResult([]);
+          return;
       }
 
       const respond = await axios.get(url);
-      setqueryResult
+      setqueryResult(respond.data);
     } catch (error) {}
 
     // if (querySearch === "name") {
