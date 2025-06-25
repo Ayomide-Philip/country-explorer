@@ -1,6 +1,6 @@
 # Welcome to Country Explorer README
 
-![Country Exploere](image.png)
+![Country Exploere](imageHeading.png)
 
 This is a website designed which is used for getting some information from some information and query information about all country.
 
@@ -18,3 +18,16 @@ The website uses api form [Rest Countries API](https://restcountries.com) for qu
 | Sub Region   | This query all country with that particular Sub Region                                                                   |
 
 ## Learn More Country Explorer Route
+
+This is a detailed page about each country, in this page i get a bunch of information about a specific country cause i am passing it as a props to my next page thanks to **NEXT JS** which allows dynamic routing.
+
+In each specific page i send this :
+![About Country](image.png)
+
+## FrameWork Used:
+
+In this project i used Next JS, which is built on react.
+
+## Contributions
+
+Any Contribution to this code is highly Appricated
