@@ -36,6 +36,12 @@ export default function HomePage() {
         case "capitalCity":
           url = `https://restcountries.com/v3.1/capital/${input}`;
           break;
+        case "language":
+          url = `https://restcountries.com/v3.1/lang/${input}`;
+          break;
+        case "currency":
+          url = `https://restcountries.com/v3.1/currency/${input}`;
+          break;
         default:
           setqueryResult([]);
           return;
@@ -94,7 +100,6 @@ export default function HomePage() {
           <option value="currency">Currency</option>
           <option value="language">Language</option>
           <option value="capitalCity">Capital city</option>
-          <option value="callingCode">Calling code</option>
           <option value="region">Region</option>
           <option value="subRegion">Subregions</option>
         </select>
