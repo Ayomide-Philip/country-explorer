@@ -1,27 +1,36 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, Variants } from "motion/react";
 
-function LoadingCircleSpinner() {
+function LoadingThreeDotsJumping() {
+  const dotVariants = {
+    jump: {
+      y: -30,
+      transition: {
+        duration: 0.8,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
-    <div className="container">
+    <div className="flex items-center justify-center min-h-screen text-center">
       <motion.div
-        className="spinner"
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-      <StyleSheet />
+        animate="jump"
+        transition={{ staggerChildren: -0.2, staggerDirection: -1 }}
+        className="flex gap-2"
+      >
+        <motion.div className="dot" variants={dotVariants} />
+        <motion.div className="dot" variants={dotVariants} />
+        <motion.div className="dot" variants={dotVariants} />
+        <StyleSheet />
+      </motion.div>
     </div>
   );
 }
 
-/**
- * ==============   Styles   ================
- */
 function StyleSheet() {
   return (
     <style>
@@ -30,16 +39,14 @@ function StyleSheet() {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 40px;
-                border-radius: 8px;
+                gap: 10px;
             }
 
-            .spinner {
-                width: 50px;
-                height: 50px;
+            .dot {
+                width: 20px;
+                height: 20px;
                 border-radius: 50%;
-                border: 4px solid var(--divider);
-                border-top-color: #ff0088;
+                background-color: #ff0088;
                 will-change: transform;
             }
             `}
@@ -47,4 +54,4 @@ function StyleSheet() {
   );
 }
 
-export default LoadingCircleSpinner;
+export default LoadingThreeDotsJumping;
