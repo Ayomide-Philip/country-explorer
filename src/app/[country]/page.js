@@ -1,10 +1,9 @@
 "use client";
 import axios from "axios";
 import { use, useEffect, useState } from "react";
-import { motion, Variants } from "motion/react";
 import LoadingCircleSpinner from "../componet/spinner";
 import Link from "next/link";
-
+import Detail from "../componet/detail";
 export default function Page({ params }) {
   const { country } = use(params);
   const [responds, setResponds] = useState(null);
@@ -35,130 +34,115 @@ export default function Page({ params }) {
     getCountryInfo();
   }, [country]);
 
-  if (responds == null) {
+  if (responds === null) {
     return <LoadingCircleSpinner />;
   }
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-900 rounded-2xl shadow-xl text-gray-100">
-      {/* Flag */}
-      <div className="overflow-hidden rounded-xl shadow-lg mb-8">
+    <div className="max-w-6xl mx-auto p-6 sm:p-10 bg-gray-900 text-gray-100 rounded-3xl shadow-2xl space-y-12">
+      <div className="flex flex-col md:flex-row items-center gap-10">
         <img
           src={responds.flags.png}
           alt={responds.flags.alt || `${responds.name.common} flag`}
-          className="w-full h-64 object-cover"
+          className="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-md"
         />
-      </div>
 
-      {/* Country Name + Emoji Flag */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-1 flex justify-center items-center gap-2">
-          {responds.name.common}
-          <span className="text-3xl">{responds.flag}</span>
-        </h1>
-        <p className="text-lg text-white font-medium">
-          {responds.name.official}
-        </p>
-      </div>
-
-      {/* Info Grid */}
-      <div className="grid md:grid-cols-2 gap-8 text-base leading-relaxed">
-        <div className="space-y-2">
-          <p>
-            <span className="font-semibold">Capital:</span>{" "}
-            {responds.capital?.[0] || "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Region:</span> {responds.region}
-          </p>
-          <p>
-            <span className="font-semibold">Subregion:</span>{" "}
-            {responds.subregion || "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Population:</span>{" "}
-            {responds.population.toLocaleString()}
-          </p>
-          <p>
-            <span className="font-semibold">Area:</span>{" "}
-            {responds.area.toLocaleString()} km²
-          </p>
-          <p>
-            <span className="font-semibold">Languages:</span>{" "}
-            {responds.languages
-              ? Object.values(responds.languages).join(", ")
-              : "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Currencies:</span>
-            {responds.currencies
-              ? Object.values(responds.currencies)
-                  .map((c) => `${c.name} (${c.symbol})`)
-                  .join(", ")
-              : "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Demonyms:</span>{" "}
-            {responds.demonyms?.eng?.m} / {responds.demonyms?.eng?.f}
+        <div className="text-center md:text-left space-y-2">
+          <h1 className="text-4xl font-bold flex items-center justify-center md:justify-start gap-3">
+            {responds.name.common}
+            <span className="text-3xl">{responds.flag}</span>
+          </h1>
+          <p className="text-indigo-400 text-lg">{responds.name.official}</p>
+          <p className="text-sm text-gray-400 italic">
+            {responds.unMember ? "United Nations Member" : "Not a UN Member"}
           </p>
         </div>
+      </div>
 
-        <div className="space-y-2">
-          <p>
-            <span className="font-semibold">Driving Side:</span>{" "}
-            {responds.car?.side || "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Timezones:</span>{" "}
-            {responds.timezones?.join(", ")}
-          </p>
-          <p>
-            <span className="font-semibold">Start of Week:</span>{" "}
-            {responds.startOfWeek || "N/A"}
-          </p>
-          <p>
-            <span className="font-semibold">Google Maps:</span>{" "}
-            <Link
-              href={responds.maps?.googleMaps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              View
-            </Link>
-          </p>
-          <p>
-            <span className="font-semibold">OpenStreetMap:</span>{" "}
-            <Link
-              href={responds.maps?.openStreetMaps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              View
-            </Link>
-          </p>
-          <p>
-            <span className="font-semibold">UN Member:</span>{" "}
-            {responds.unMember ? "Yes" : "No"}
-          </p>
+      <div className="grid sm:grid-cols-2 gap-10 text-base">
+        <div className="space-y-3">
+          <Detail label="Capital" value={responds.capital?.[0]} />
+          <Detail label="Region" value={responds.region} />
+          <Detail label="Subregion" value={responds.subregion} />
+          <Detail
+            label="Population"
+            value={responds.population?.toLocaleString()}
+          />
+          <Detail
+            label="Area"
+            value={`${responds.area?.toLocaleString()} km²`}
+          />
+          <Detail
+            label="Languages"
+            value={
+              responds.languages
+                ? Object.values(responds.languages).join(", ")
+                : "N/A"
+            }
+          />
+          <Detail
+            label="Currencies"
+            value={
+              responds.currencies
+                ? Object.values(responds.currencies)
+                    .map((c) => `${c.name} (${c.symbol})`)
+                    .join(", ")
+                : "N/A"
+            }
+          />
+        </div>
+
+        <div className="space-y-3">
+          <Detail
+            label="Demonyms"
+            value={`${responds.demonyms?.eng?.m} / ${responds.demonyms?.eng?.f}`}
+          />
+          <Detail label="Driving Side" value={responds.car?.side} />
+          <Detail label="Timezones" value={responds.timezones?.join(", ")} />
+          <Detail label="Start of Week" value={responds.startOfWeek} />
+          <Detail
+            label="Google Maps"
+            value={
+              <a
+                href={responds.maps?.googleMaps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                View
+              </a>
+            }
+          />
+          <Detail
+            label="OpenStreetMap"
+            value={
+              <a
+                href={responds.maps?.openStreetMaps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                View
+              </a>
+            }
+          />
         </div>
       </div>
 
       {responds.coatOfArms?.png && (
-        <div className="mt-12 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Coat of Arms</h2>
+        <div className="text-center space-y-4">
+          <h2 className="text-2xl font-semibold text-gray-300">Coat of Arms</h2>
           <img
             src={responds.coatOfArms.png}
             alt={`${responds.name.common} coat of arms`}
-            className="h-40 mx-auto rounded-md shadow-lg"
+            className="h-40 mx-auto rounded-lg shadow-lg"
           />
         </div>
       )}
 
-      <div className="mt-12 text-center">
+      <div className="text-center">
         <Link
           href="/"
-          className="inline-block px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          className="inline-block mt-8 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition"
         >
           ← Back to all countries
         </Link>
