@@ -8,18 +8,6 @@ export default function Page({ params }) {
   const { country } = use(params);
   const [responds, setResponds] = useState(null);
 
-  const dotVariants = {
-    jump: {
-      y: -30,
-      transition: {
-        duration: 0.8,
-        repeat: Infinity,
-        repeatType: "mirror",
-        ease: "easeInOut",
-      },
-    },
-  };
-
   useEffect(() => {
     async function getCountryInfo() {
       try {
@@ -51,8 +39,8 @@ export default function Page({ params }) {
             {responds.name.common}
             <span className="text-3xl">{responds.flag}</span>
           </h1>
-          <p className="text-indigo-400 text-lg">{responds.name.official}</p>
-          <p className="text-sm text-gray-400 italic">
+          <p className="text-green-400 text-lg">{responds.name.official}</p>
+          <p className="text-sm text-white italic">
             {responds.unMember ? "United Nations Member" : "Not a UN Member"}
           </p>
         </div>
