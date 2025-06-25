@@ -2,11 +2,21 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 export default function HomePage() {
-  const [queryResult, setqueryResult] = useState();
+  const [queryResult, setqueryResult] = useState([]);
   useEffect(() => {
     async function getAllCountry() {
-      
+      try {
+        const respond = await axios.get(
+          "https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,subregion"
+        );
+        console.log(respond.data.length);
+        setqueryResult(respond.data);
+      } catch (error) {
+        console.log(error);
+        setqueryResult([]);
+      }
     }
+    getAllCountry();
   }, []);
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white px-6 py-10">
@@ -41,47 +51,40 @@ export default function HomePage() {
       </section>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        {[
-          {
-            name: "Nigeria",
-            flag: "https://flagcdn.com/w320/ng.png",
-            population: "200,000,000",
-            region: "Africa",
-            capital: "Abuja",
-          },
-          {
-            name: "France",
-            flag: "https://flagcdn.com/w320/fr.png",
-            population: "67,000,000",
-            region: "Europe",
-            capital: "Paris",
-          },
-        ].map((country) => (
-          <div
-            key={country.name}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-[1.03] transition-all duration-300 overflow-hidden"
-          >
-            <img
-              src={country.flag}
-              alt={country.name}
-              className="w-full h-44 object-cover"
-            />
-            <div className="p-5">
-              <h2 className="text-2xl font-semibold mb-3">{country.name}</h2>
-              <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                <li>
-                  <strong>Population:</strong> {country.population}
-                </li>
-                <li>
-                  <strong>Region:</strong> {country.region}
-                </li>
-                <li>
-                  <strong>Capital:</strong> {country.capital}
-                </li>
-              </ul>
-            </div>
-          </div>
-        ))}
+        {queryResult.length > 0
+          ? queryResult.map((country) => (
+              <div
+                key={country.name.common}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-[1.03] transition-all duration-300 overflow-hidden"
+              >
+                <img
+                  src={country.flags.png}
+                  alt={country.flags.alt}
+                  className="w-full h-44 object-cover"
+                />
+                <div className="p-5">
+                  <h2 className="text-2xl font-semibold mb-3">
+                    {country.name.official}
+                  </h2>
+                  <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                    <li>
+                      <strong>Population:</strong> {country.population}
+                    </li>
+                    <li>
+                      <strong>Region:</strong>
+                      {country.region}
+                    </li>
+                    <li>
+                      <strong>Sub Region:</strong> {country.subregion}
+                    </li>
+                    <li>
+                      <strong>Capital:</strong> {country.capital[0]}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            ))
+          : null}
       </section>
     </main>
   );
