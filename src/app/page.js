@@ -31,7 +31,8 @@ export default function HomePage() {
           url = `https://restcountries.com/v3.1/region/${input}`;
       }
 
-      const respond = 
+      const respond = await axios.get(url);
+      setqueryResult
     } catch (error) {}
 
     // if (querySearch === "name") {
