@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: " 🌍 Country Explorer",
+  title: "Country Explorer",
   description: "Explore all the county we have all around the world.",
 };
 
