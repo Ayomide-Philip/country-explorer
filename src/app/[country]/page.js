@@ -94,7 +94,7 @@ export default function Page({ params }) {
                 href={responds.maps?.googleMaps}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 underline"
+                className="text-green-500 underline"
               >
                 View
               </a>
@@ -107,7 +107,7 @@ export default function Page({ params }) {
                 href={responds.maps?.openStreetMaps}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 underline"
+                className="text-green-500 underline"
               >
                 View
               </a>
