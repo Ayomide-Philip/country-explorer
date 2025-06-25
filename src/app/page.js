@@ -24,24 +24,26 @@ export default function HomePage() {
   async function useQuery() {
     try {
       let url = "";
+      const userInput = input.toLowerCase();
+
       switch (querySearch) {
         case "name":
-          url = `https://restcountries.com/v3.1/name/${input}`;
+          url = `https://restcountries.com/v3.1/name/${userInput}`;
           break;
         case "region":
-          url = `https://restcountries.com/v3.1/region/${input}`;
+          url = `https://restcountries.com/v3.1/region/${userInput}`;
           break;
         case "subRegion":
-          url = `https://restcountries.com/v3.1/subregion/${input}`;
+          url = `https://restcountries.com/v3.1/subregion/${userInput}`;
           break;
         case "capitalCity":
-          url = `https://restcountries.com/v3.1/capital/${input}`;
+          url = `https://restcountries.com/v3.1/capital/${userInput}`;
           break;
         case "language":
-          url = `https://restcountries.com/v3.1/lang/${input}`;
+          url = `https://restcountries.com/v3.1/lang/${userInput}`;
           break;
         case "currency":
-          url = `https://restcountries.com/v3.1/currency/${input}`;
+          url = `https://restcountries.com/v3.1/currency/${userInput}`;
           break;
         default:
           setqueryResult([]);
