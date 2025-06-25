@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import CountryNotFound from "./componet/countryNotFound";
 import CountryList from "./componet/countryList";
 export default function HomePage() {
@@ -8,7 +9,6 @@ export default function HomePage() {
   const [querySearch, setQuerySearch] = useState("name");
   const [loading, setLocading] = useState(false);
   const [input, setInput] = useState();
-  const [initialLoading, setInitialLoading] = useState(false);
   useEffect(() => {
     async function getAllCountry() {
       setLocading(true);
@@ -22,7 +22,6 @@ export default function HomePage() {
         setqueryResult([]);
       } finally {
         setLocading(false);
-        setInitialLoading(true);
       }
     }
 
@@ -30,117 +29,113 @@ export default function HomePage() {
   }, []);
 
   async function useQuery() {
-    setLocading(true);
-    try {
-      let url = "";
-      const userInput = input.toLowerCase();
+    if (input.length >= 3) {
+      setLocading(true);
+      try {
+        let url = "";
+        const userInput = input.toLowerCase();
 
-      switch (querySearch) {
-        case "name":
-          url = `https://restcountries.com/v3.1/name/${userInput}`;
-          break;
-        case "region":
-          url = `https://restcountries.com/v3.1/region/${userInput}`;
-          break;
-        case "subRegion":
-          url = `https://restcountries.com/v3.1/subregion/${userInput}`;
-          break;
-        case "capitalCity":
-          url = `https://restcountries.com/v3.1/capital/${userInput}`;
-          break;
-        case "language":
-          url = `https://restcountries.com/v3.1/lang/${userInput}`;
-          break;
-        case "currency":
-          url = `https://restcountries.com/v3.1/currency/${userInput}`;
-          break;
-        default:
-          setqueryResult([]);
-          return;
+        switch (querySearch) {
+          case "name":
+            url = `https://restcountries.com/v3.1/name/${userInput}`;
+            break;
+          case "region":
+            url = `https://restcountries.com/v3.1/region/${userInput}`;
+            break;
+          case "subRegion":
+            url = `https://restcountries.com/v3.1/subregion/${userInput}`;
+            break;
+          case "capitalCity":
+            url = `https://restcountries.com/v3.1/capital/${userInput}`;
+            break;
+          case "language":
+            url = `https://restcountries.com/v3.1/lang/${userInput}`;
+            break;
+          case "currency":
+            url = `https://restcountries.com/v3.1/currency/${userInput}`;
+            break;
+          default:
+            setqueryResult([]);
+            return;
+        }
+
+        const respond = await axios.get(url);
+        console.log(respond.data);
+
+        setqueryResult(respond.data);
+        console.log("done");
+      } catch (error) {
+        setqueryResult([]);
+      } finally {
+        setLocading(false);
       }
-
-      const respond = await axios.get(url);
-      console.log(respond.data);
-
-      setqueryResult(respond.data);
-      console.log("done");
-    } catch (error) {
-      setqueryResult([]);
-    } finally {
-      setLocading(false);
+    } else {
+      toast.error("Your Search Query should be 3 letter or more.");
     }
   }
 
-  //   return (
-  //     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-6 py-10">
-  //       <header className="mb-6">
-  //         <h1 className="text-4xl font-extrabold tracking-tight text-center">
-  //           🌍 Country Explorer
-  //         </h1>
-  //       </header>
-
-  //     </main>
-  //   );
-  // } else {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-6 py-10">
-      <header className="mb-6">
-        <h1 className="text-4xl font-extrabold tracking-tight text-center">
-          🌍 Country Explorer
-        </h1>
-      </header>
+    <>
+      {" "}
+      <ToastContainer />
+      <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-6 py-10">
+        <header className="mb-6">
+          <h1 className="text-4xl font-extrabold tracking-tight text-center">
+            🌍 Country Explorer
+          </h1>
+        </header>
 
-      <section className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-stretch gap-4 mb-12 px-4">
-        <div className="flex-1 relative">
-          <input
-            type="text"
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="🔍 Search for a country..."
-            className="w-full h-full px-5 py-3 rounded-lg border border-gray-300  bg-gray-800 placeholder-gray-400  text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
-          />
-        </div>
+        <section className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-stretch gap-4 mb-12 px-4">
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="🔍 Search for a country..."
+              className="w-full h-full px-5 py-3 rounded-lg border border-gray-300  bg-gray-800 placeholder-gray-400  text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+            />
+          </div>
 
-        {/* Select Field */}
-        <div className="w-full md:w-52">
-          <select
-            name="query"
-            onChange={(e) => setQuerySearch(e.target.value)}
-            className="w-full h-full px-4 py-3 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
-          >
-            <option value="name">🔤 Name</option>
-            <option value="currency">💱 Currency</option>
-            <option value="language">🗣️ Language</option>
-            <option value="capitalCity">🏛️ Capital City</option>
-            <option value="region">🌍 Region</option>
-            <option value="subRegion">🗺️ Subregion</option>
-          </select>
-        </div>
+          <div className="w-full md:w-52">
+            <select
+              name="query"
+              onChange={(e) => setQuerySearch(e.target.value)}
+              className="w-full h-full px-4 py-3 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+            >
+              <option value="name">🔤 Name</option>
+              <option value="currency">💱 Currency</option>
+              <option value="language">🗣️ Language</option>
+              <option value="capitalCity">🏛️ Capital City</option>
+              <option value="region">🌍 Region</option>
+              <option value="subRegion">🗺️ Subregion</option>
+            </select>
+          </div>
 
-        <div className="w-full md:w-auto">
-          <button
-            onClick={useQuery}
-            className="w-full h-full px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition-all duration-200"
-          >
-            🔎 Search
-          </button>
-        </div>
-      </section>
-      {loading ? (
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <SkeletonCard key={i} />
-          ))}
+          <div className="w-full md:w-auto">
+            <button
+              onClick={useQuery}
+              className="w-full h-full px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition-all duration-200"
+            >
+              🔎 Search
+            </button>
+          </div>
         </section>
-      ) : (
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
-          {queryResult.length > 0 ? (
-            <CountryList queryResult={queryResult} />
-          ) : (
-            <CountryNotFound />
-          )}
-        </section>
-      )}
-    </main>
+        {loading ? (
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </section>
+        ) : (
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
+            {queryResult.length > 0 ? (
+              <CountryList queryResult={queryResult} />
+            ) : (
+              <CountryNotFound />
+            )}
+          </section>
+        )}
+      </main>
+    </>
   );
 }
 
