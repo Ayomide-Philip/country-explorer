@@ -142,7 +142,7 @@ export default function Page({ params }) {
       <div className="text-center">
         <Link
           href="/"
-          className="inline-block mt-8 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition"
+          className="inline-block mt-8 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
         >
           ← Back to all countries
         </Link>
