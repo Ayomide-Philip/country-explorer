@@ -9,7 +9,6 @@ export default function HomePage() {
         const respond = await axios.get(
           "https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,subregion"
         );
-        console.log(respond.data.length);
         setqueryResult(respond.data);
       } catch (error) {
         console.log(error);
@@ -66,16 +65,15 @@ export default function HomePage() {
                   <h2 className="text-2xl font-semibold mb-3">
                     {country.name.official}
                   </h2>
-                  <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                  <ul className="space-y-1 text-sm text-white">
                     <li>
-                      <strong>Population:</strong> {country.population}
+                      <strong>Population: </strong> {country.population}
                     </li>
                     <li>
-                      <strong>Region:</strong>
-                      {country.region}
+                      <strong>Region: </strong> {country.region}
                     </li>
                     <li>
-                      <strong>Sub Region:</strong> {country.subregion}
+                      <strong>Sub Region: </strong> {country.subregion}
                     </li>
                     <li>
                       <strong>Capital:</strong>{" "}
