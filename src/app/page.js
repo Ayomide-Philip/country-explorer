@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Link from "next/link";
 export default function HomePage() {
   const [queryResult, setqueryResult] = useState([]);
   const [querySearch, setQuerySearch] = useState("name");
@@ -135,9 +136,12 @@ export default function HomePage() {
               </p>
 
               <div className="flex justify-between items-center pt-4 border-t border-black">
-                <button className="bg-green-800 text-white py-2 px-5 rounded-full text-sm font-medium shadow hover:bg-green-900 transition-all">
+                <Link
+                  href={`/${country.name.common}`}
+                  className="bg-green-800 text-white py-2 px-5 rounded-full text-sm font-medium shadow hover:bg-green-900 transition-all"
+                >
                   Learn More
-                </button>
+                </Link>
                 <span className="text-xs text-black">
                   {country.name.common}
                 </span>
