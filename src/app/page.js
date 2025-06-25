@@ -7,7 +7,7 @@ export default function HomePage() {
     async function getAllCountry() {
       try {
         const respond = await axios.get(
-          "https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,subregion"
+          "https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,subregion,timezones"
         );
         setqueryResult(respond.data);
       } catch (error) {
@@ -18,7 +18,7 @@ export default function HomePage() {
     getAllCountry();
   }, []);
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-6 py-10">
       <header className="mb-6">
         <h1 className="text-4xl font-extrabold tracking-tight text-center">
           🌍 Country Explorer
@@ -71,6 +71,9 @@ export default function HomePage() {
                     </li>
                     <li>
                       <strong>Region: </strong> {country.region}
+                    </li>
+                    <li>
+                      <strong>Timezone: </strong> {country.timezones}
                     </li>
                     <li>
                       <strong>Sub Region: </strong> {country.subregion}
