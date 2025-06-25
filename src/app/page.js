@@ -78,7 +78,10 @@ export default function HomePage() {
                       <strong>Sub Region:</strong> {country.subregion}
                     </li>
                     <li>
-                      <strong>Capital:</strong> {country.capital[0]}
+                      <strong>Capital:</strong>{" "}
+                      {country.capital.map((capitals) => {
+                        return capitals;
+                      })}
                     </li>
                   </ul>
                 </div>
