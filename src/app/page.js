@@ -17,14 +17,14 @@ export default function HomePage() {
           name="query"
           className="sm:w-48 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
-          <option>Name</option>
-          <option>Full Name</option>
-          <option>Currency</option>
-          <option>Language</option>
-          <option>Capital city</option>
-          <option>Calling code</option>
-          <option>Region</option>
-          <option>Subregions</option>
+          <option value="name">Name</option>
+          <option value="fullName">Full Name</option>
+          <option value="currency">Currency</option>
+          <option value="language">Language</option>
+          <option value="capitalCity">Capital city</option>
+          <option value="callingCode">Calling code</option>
+          <option value="region">Region</option>
+          <option value="subRegion">Subregions</option>
         </select>
         <button className="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200">
           Search
