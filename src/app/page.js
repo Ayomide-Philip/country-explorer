@@ -116,7 +116,6 @@ export default function HomePage() {
           </select>
         </div>
 
-        {/* Search Button */}
         <div className="w-full md:w-auto">
           <button
             onClick={useQuery}
@@ -134,7 +133,7 @@ export default function HomePage() {
         </section>
       ) : (
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 sm:px-6 lg:px-12">
-          {queryResult.length > 0  ? (
+          {queryResult.length > 0 ? (
             <CountryList queryResult={queryResult} />
           ) : (
             <CountryNotFound />
