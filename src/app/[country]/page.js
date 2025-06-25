@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import LoadingCircleSpinner from "../componet/spinner";
-import Link from "next/link";
 import Detail from "../componet/detail";
 export default function Page({ params }) {
   const { country } = use(params);
