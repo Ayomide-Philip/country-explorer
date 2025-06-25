@@ -49,27 +49,9 @@ export default function HomePage() {
 
       const respond = await axios.get(url);
       setqueryResult(respond.data);
-    } catch (error) {}
-
-    // if (querySearch === "name") {
-    //   try {
-    //     const respond = await axios.get(
-    //       `https://restcountries.com/v3.1/name/${input}`
-    //     );
-    //     setqueryResult(respond.data);
-    //   } catch (error) {
-    //     setqueryResult([]);
-    //   }
-    // } else if (querySearch === "region") {
-    //   try {
-    //     const respond = await axios.get(
-    //       `https://restcountries.com/v3.1/region/${input}`
-    //     );
-    //     setqueryResult(respond.data);
-    //   } catch (error) {
-    //     setqueryResult([]);
-    //   }
-    // }
+    } catch (error) {
+      setqueryResult([]);
+    }
   }
 
   return (
